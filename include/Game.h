@@ -6,18 +6,23 @@
 
 // Include directives
 #pragma once
+
+// Standard library includes
 #include <iostream>
+#include <string>
+
+// SFML includes - specific components to avoid conflicts
+#include <SFML/Audio/SoundBuffer.hpp>
+#include <SFML/Audio/Sound.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/System/Clock.hpp>
+
+// Game specific includes
 #include "raylib.h"
 #include "Ball.h"
 #include "Paddle.h"
 #include "Line.h"
 #include "Scores.h"
-using namespace std;
-
-// SFML graphics library
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-using namespace sf;
 
 // Set up window dimensions and title
 const int screen_width = 1280;   // Width of the game window

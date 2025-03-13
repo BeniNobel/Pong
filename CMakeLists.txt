@@ -15,8 +15,14 @@ set(HOMEBREW_PATH /opt/homebrew)
 set(SFML_DIR "${HOMEBREW_PATH}/Cellar/sfml@2/2.6.2_1/lib/cmake/SFML")
 set(SFML_INCLUDE_DIR "${HOMEBREW_PATH}/Cellar/sfml@2/2.6.2_1/include")
 
+# Set compiler flags for macOS
+if(APPLE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -DSFML_NO_DEPRECATED_WARNINGS")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
+endif()
+
 # Find SFML
-find_package(SFML 2.6.2 COMPONENTS system audio REQUIRED)
+find_package(SFML 2.6.2 COMPONENTS system audio graphics window REQUIRED)
 
 # Add raylib
 include(FetchContent)
@@ -38,6 +44,12 @@ include_directories(
     ${SFML_INCLUDE_DIR}
 )
 
+# Add compile definitions to avoid conflicts
+add_compile_definitions(
+    SFML_NO_DEPRECATED_WARNINGS
+    SFML_STATIC
+)
+
 # Get all source files
 file(GLOB SOURCES "src/*.cpp")
 
@@ -45,7 +57,13 @@ file(GLOB SOURCES "src/*.cpp")
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 # Link libraries
-target_link_libraries(${PROJECT_NAME} PRIVATE raylib sfml-system sfml-audio)
+target_link_libraries(${PROJECT_NAME} PRIVATE 
+    raylib 
+    sfml-system 
+    sfml-audio 
+    sfml-graphics 
+    sfml-window
+)
 
 # Copy assets to build directory
 file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR}) 

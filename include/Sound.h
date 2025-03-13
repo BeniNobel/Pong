@@ -6,8 +6,14 @@
 
 // Include directives
 #pragma once // Include guard to ensure this header file is only included once
-#include <SFML/Audio.hpp>
+
+// Standard library includes
+#include <string>
 #include <iostream>
+
+// SFML includes
+#include <SFML/Audio/SoundBuffer.hpp>
+#include <SFML/Audio/Sound.hpp>
 
 class SoundManager {
 public:

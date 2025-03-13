@@ -6,8 +6,13 @@
 
 // Header guard to prevent multiple inclusion
 #pragma once
+
+// Include necessary headers
 #include <raylib.h>
 #include "Sound.h"
+
+// Forward declaration
+class SoundManager;
 
 // Class definition for the Ball
 class Ball {
